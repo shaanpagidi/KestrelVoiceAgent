@@ -1,0 +1,9 @@
+beautifulsoup4
+python-dateutil
+rank-bm25
+numpy
+fastapi
+uvicorn
+requests
+python-dotenv
+

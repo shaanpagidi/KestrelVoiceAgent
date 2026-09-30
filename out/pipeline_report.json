@@ -1,0 +1,78 @@
+{
+  "run_date": "2026-09-30",
+  "extraction_failures": [],
+  "empty_sections": [
+    {
+      "source": "website.html",
+      "section": "Kestrel Capital Business Loans > Loan Calculator"
+    }
+  ],
+  "boilerplate_removed": 1,
+  "too_short_dropped": 1,
+  "duplicates": [
+    {
+      "dropped_source": "website.html",
+      "dropped_section": "Kestrel Capital Business Loans > About Kestrel Capital",
+      "kept_as": "Why Kestrel Capital",
+      "kept_source": "website.html"
+    }
+  ],
+  "conflicts": [
+    {
+      "fact": "processing_fee",
+      "record_source": "website.html",
+      "section": "Kestrel Capital Business Loans > Rates and Fees",
+      "found": [
+        [
+          "1"
+        ]
+      ],
+      "canonical": [
+        [
+          "1",
+          "2"
+        ]
+      ],
+      "resolution": "excluded from index; higher-priority source wins"
+    },
+    {
+      "fact": "min_annual_turnover",
+      "record_source": "website.html",
+      "section": "Kestrel Capital Business Loans > Who can apply?",
+      "found": [
+        [
+          "20"
+        ]
+      ],
+      "canonical": [
+        [
+          "25"
+        ]
+      ],
+      "resolution": "excluded from index; higher-priority source wins"
+    },
+    {
+      "fact": "min_business_vintage",
+      "record_source": "website.html",
+      "section": "Kestrel Capital Business Loans > Who can apply?",
+      "found": [
+        [
+          "1"
+        ]
+      ],
+      "canonical": [
+        [
+          "2"
+        ]
+      ],
+      "resolution": "excluded from index; higher-priority source wins"
+    }
+  ],
+  "pii_masked": {
+    "EMAIL": 1,
+    "PERSON": 2,
+    "PHONE": 2
+  },
+  "records_written": 27,
+  "active_records": 25
+}

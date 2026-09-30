@@ -1,0 +1,9 @@
+.env
+__pycache__/
+out/leads.jsonl
+out/callbacks.jsonl
+out/escalations.jsonl
+*.npy
+
+assignment.pdf
+.venv/

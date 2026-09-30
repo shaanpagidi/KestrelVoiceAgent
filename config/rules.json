@@ -1,0 +1,13 @@
+{
+  "entity_types": ["proprietorship", "partnership", "llp", "private limited"],
+  "min_vintage_years": 2,
+  "min_annual_turnover_lakh": 25,
+  "min_loan_lakh": 5,
+  "max_loan_lakh": 100,
+  "max_loan_to_turnover_ratio": 0.5,
+  "credit_score_standard": 700,
+  "credit_score_manual_review": 650,
+  "age_min": 25,
+  "age_max": 65,
+  "gst_required": true
+}
