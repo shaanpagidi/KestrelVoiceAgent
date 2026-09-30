@@ -13,6 +13,16 @@ TERMINOLOGY = [
     (r"\bcrores\b", "crore"),
 ]
 
+# Common caller phrasing mapped to vocabulary used in the policy and FAQ sources.
+# Keep expansions narrow: broad terms such as "loan" can pull unrelated questions into scope.
+QUERY_EXPANSIONS = [
+    (r"\b(?:shop|company|firm|enterprise)\b", "business"),
+    (r"\b(?:operating|trading|been open|been running)\b", "minimum business vintage years"),
+    (r"\b\d+(?:\.\d+)?\s+months?\s+(?:old|in business)\b", "minimum business vintage years"),
+    (r"\b(?:paperwork|papers|docs)\b", "documents"),
+    (r"\b(?:prepare|preparing|bring)\b", "required"),
+]
+
 # Lines matching these are boilerplate (nav/footer/marketing CTAs/legal banners).
 BOILERPLATE_PATTERNS = [
     r"^©|^&copy;|all rights reserved",

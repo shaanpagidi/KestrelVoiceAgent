@@ -3,6 +3,9 @@ __pycache__/
 out/leads.jsonl
 out/callbacks.jsonl
 out/escalations.jsonl
+out/call_evidence/
+out/q4_audio_*.json
+data/audio/
 *.npy
 
 assignment.pdf

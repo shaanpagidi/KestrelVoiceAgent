@@ -20,11 +20,14 @@ E = os.environ
 
 
 def fn_tool(name, description, properties, required=()):
+    server = {"url": f"{E.get('PUBLIC_BASE_URL', '').rstrip('/')}/vapi/tools"}
+    if E.get("VAPI_CREDENTIAL_ID"):
+        server["credentialId"] = E["VAPI_CREDENTIAL_ID"]
     return {
         "type": "function",
         "function": {"name": name, "description": description,
                      "parameters": {"type": "object", "properties": properties, "required": list(required)}},
-        "server": {"url": f"{E['PUBLIC_BASE_URL'].rstrip('/')}/vapi/tools", "secret": E.get("VAPI_SERVER_SECRET", "")},
+        "server": server,
     }
 
 
@@ -71,14 +74,24 @@ payload = {
                     "language": E.get("ASR_LANGUAGE", "en-IN")},
     "voice": {"provider": E.get("VOICE_PROVIDER", "azure"), "voiceId": E.get("VOICE_ID", "en-IN-NeerjaNeural")},
     "endCallFunctionEnabled": True,
-    "artifactPlan": {"recordingEnabled": True},
+    "artifactPlan": {"recordingEnabled": True, "loggingEnabled": True,
+                      "transcriptPlan": {"enabled": True, "assistantName": "Asha", "userName": "Customer"}},
 }
 
 if __name__ == "__main__":
+    required = [name for name in ("VAPI_API_KEY", "PUBLIC_BASE_URL", "VAPI_SERVER_SECRET", "VAPI_CREDENTIAL_ID")
+                if not E.get(name)]
+    if E.get("VAPI_SERVER_SECRET", "").strip().lower() in ("change-me", "changeme"):
+        required.append("a non-placeholder VAPI_SERVER_SECRET")
+    if E.get("PUBLIC_BASE_URL", "").strip().lower().startswith("https://your-tunnel"):
+        required.append("a real public HTTPS URL in PUBLIC_BASE_URL")
+    if required:
+        raise SystemExit("Set these environment variables before configuring Vapi: " + ", ".join(required))
     headers = {"Authorization": f"Bearer {E['VAPI_API_KEY']}", "Content-Type": "application/json"}
     if len(sys.argv) > 1:
         r = requests.patch(f"https://api.vapi.ai/assistant/{sys.argv[1]}", headers=headers, json=payload, timeout=30)
     else:
         r = requests.post("https://api.vapi.ai/assistant", headers=headers, json=payload, timeout=30)
     print(r.status_code)
+    r.raise_for_status()
     print(json.dumps(r.json(), indent=2)[:1500])

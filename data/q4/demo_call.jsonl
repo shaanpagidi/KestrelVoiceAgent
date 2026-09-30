@@ -1,0 +1,7 @@
+{"offset_sec":0.0,"speaker":"agent","text":"Hello, this call may be recorded for quality. How can I help today?","confidence":0.99}
+{"offset_sec":1.5,"speaker":"caller","text":"I'm calling about vehicle financing.","confidence":0.96}
+{"offset_sec":3.0,"speaker":"caller","text":"We also bought a second vehicle last month.","confidence":0.95}
+{"offset_sec":4.5,"speaker":"agent","text":"I guarantee you'll be approved for sure.","confidence":0.97}
+{"offset_sec":6.0,"speaker":"caller","text":"This is frustrating. No one is helping me.","confidence":0.92}
+{"offset_sec":7.5,"speaker":"caller","text":"I lost my job and cannot afford this month's installment.","confidence":0.93}
+{"offset_sec":9.0,"speaker":"caller","text":"Maybe the second vehicle is not part of this request.","confidence":0.38}

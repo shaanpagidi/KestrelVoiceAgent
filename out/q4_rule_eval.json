@@ -1,0 +1,67 @@
+{
+  "run_at": "2026-09-30T16:07:29.586969+00:00",
+  "mode": "deterministic transcript fixtures; no audio or ASR",
+  "passed": 10,
+  "total": 10,
+  "scenarios": [
+    {
+      "scenario": "Skipped required disclosure",
+      "status": "PASS",
+      "detail": "A compliance nudge is emitted after the configured disclosure deadline."
+    },
+    {
+      "scenario": "Disclosure recognition",
+      "status": "PASS",
+      "detail": "recorded/recording variants count as the disclosure."
+    },
+    {
+      "scenario": "Missed cross-sell opportunity",
+      "status": "PASS",
+      "detail": "A second-vehicle mention produces a short agent suggestion."
+    },
+    {
+      "scenario": "Risky promise",
+      "status": "PASS",
+      "detail": "A guarantee statement produces a high-priority compliance alert."
+    },
+    {
+      "scenario": "Rising frustration",
+      "status": "PASS",
+      "detail": "Frustration language prompts acknowledgement and human-help guidance."
+    },
+    {
+      "scenario": "Payment difficulty",
+      "status": "PASS",
+      "detail": "Hardship language suggests the approved support or callback path."
+    },
+    {
+      "scenario": "Topic shift",
+      "status": "PASS",
+      "detail": "A payment-to-coverage shift suggests acknowledging and confirming the new intent."
+    },
+    {
+      "scenario": "Noisy / ambiguous input",
+      "status": "PASS",
+      "detail": "Low-confidence transcript does not create a nudge."
+    },
+    {
+      "scenario": "Duplicate suppression / cooldown",
+      "status": "PASS",
+      "detail": "Repeated same-group frustration nudge is suppressed during cooldown."
+    },
+    {
+      "scenario": "Nudge expiry",
+      "status": "PASS",
+      "detail": "Expired nudges are removed from the active feed."
+    }
+  ],
+  "signal_latency_ms": {
+    "p50": 0.072,
+    "p95": 0.256,
+    "samples": 8
+  },
+  "asr_latency_ms": null,
+  "llm_latency_ms": 0,
+  "false_positive_review": "Zero nudges from one low-confidence noisy fixture (n=1). This is a control check, not a statistically meaningful false-positive rate.",
+  "limits": "ASR, network delivery, and dashboard display latency require the audio replay and a real client."
+}

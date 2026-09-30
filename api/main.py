@@ -46,7 +46,7 @@ def tool_search(args):
     res = kb.search(args.get("query", ""), top_k=2, category=args.get("category"))
     if not res["found"]:
         return NO_INFO
-    parts = [f"[{r['record_id']} | {r['source']}] {r['title']}: {r['content']}" for r in res["results"]]
+    parts = [f"[{r['citation']}] {r['title']}: {r['content']}" for r in res["results"]]
     return " || ".join(parts).replace("\n", " ")
 
 
@@ -109,9 +109,14 @@ def vapi_tools(body: dict, x_vapi_secret: str | None = Header(default=None)):
             except json.JSONDecodeError:
                 args = {}
         handler = TOOLS.get(fn.get("name"))
+        call_id = c.get("id")
+        if not handler:
+            results.append({"toolCallId": call_id, "error": f"Unknown tool {fn.get('name')}"})
+            continue
         try:
-            out = handler(args) if handler else f"Unknown tool {fn.get('name')}"
-        except Exception as e:  # tool failure must degrade to a safe spoken fallback
-            out = f"TOOL_ERROR: {type(e).__name__}. Apologise briefly and offer a callback instead."
-        results.append({"toolCallId": c.get("id"), "result": out})
+            out = handler(args)
+            results.append({"toolCallId": call_id, "result": str(out)})
+        except Exception as e:  # Vapi expects tool errors as `error`, with HTTP 200.
+            results.append({"toolCallId": call_id,
+                            "error": f"Tool failed ({type(e).__name__}). Apologise briefly and offer a callback."})
     return {"results": results}

@@ -17,13 +17,14 @@ from pathlib import Path
 import numpy as np
 from rank_bm25 import BM25Okapi
 
+from kb import config as C
 from kb.pipeline import normalize_terms
 
 ROOT = Path(__file__).resolve().parent.parent
 STOP = set("a an the is are was were be do does did i you we they it of to for in on at and or with my your our can "
            "could would should what how when where which who this that these those about me tell please there any "
            "have has get from as by if not no so am will much many long need needs want take make give too very "
-           "just say says said".split())
+           "just say says said must old before happen happens been apply applies applying".split())
 
 
 def _stem(t):
@@ -73,13 +74,18 @@ class KBIndex:
 
     def _coverage(self, q_tokens, doc_idx):
         idf = lambda t: max(self.bm25.idf.get(t, self.max_idf), 0.1)
-        qset = set(q_tokens)
+        # Customer-specific numeric values (e.g. a score or amount) should not
+        # make an otherwise on-topic query fail the confidence gate.
+        qset = {t for t in q_tokens if not t.isdigit()}
         total = sum(idf(t) for t in qset)
         hit = sum(idf(t) for t in qset if t in self.doc_sets[doc_idx])
         return hit / total if total else 0.0
 
     def search(self, query, top_k=3, category=None):
-        q_tokens = tokenize(normalize_terms(query))  # same term standardisation as the KB
+        normalized_query = normalize_terms(query)
+        for pattern, replacement in C.QUERY_EXPANSIONS:
+            normalized_query = re.sub(pattern, replacement, normalized_query, flags=re.I)
+        q_tokens = tokenize(normalized_query)  # same terminology standardisation as the KB
         if not q_tokens:
             return self._result(query, [], 0.0)
         idxs = [i for i, r in enumerate(self.records) if category in (None, r["category"])]

@@ -1,0 +1,125 @@
+{
+  "run_at": "2026-09-30T12:17:44.635326+00:00",
+  "session_id": "replay-41510fc5",
+  "input_mode": "synthetic transcript replay; no audio or ASR",
+  "chunks": 7,
+  "nudges": [
+    {
+      "id": "64be6ceeef",
+      "session_id": "replay-41510fc5",
+      "rule_id": "missed_cross_sell",
+      "group": "opportunity",
+      "priority": "normal",
+      "confidence": 0.86,
+      "text": "The customer mentioned another vehicle. Ask whether they want information about suitable coverage for it.",
+      "audio_time_sec": 3.0,
+      "created_at": "2026-09-30T12:17:38.625169+00:00",
+      "expires_in_sec": 30,
+      "signal_latency_ms": 0.088,
+      "asr_latency_ms": null
+    },
+    {
+      "id": "fe61116e32",
+      "session_id": "replay-41510fc5",
+      "rule_id": "risky_promise",
+      "group": "compliance",
+      "priority": "high",
+      "confidence": 0.98,
+      "text": "Review this statement: do not guarantee approval, rates, or outcomes.",
+      "audio_time_sec": 4.5,
+      "created_at": "2026-09-30T12:17:40.123568+00:00",
+      "expires_in_sec": 30,
+      "signal_latency_ms": 0.109,
+      "asr_latency_ms": null
+    },
+    {
+      "id": "f66876a7ed",
+      "session_id": "replay-41510fc5",
+      "rule_id": "frustration",
+      "group": "sentiment",
+      "priority": "high",
+      "confidence": 0.84,
+      "text": "Pause the sales flow, acknowledge the concern, and offer a human colleague.",
+      "audio_time_sec": 6.0,
+      "created_at": "2026-09-30T12:17:41.633102+00:00",
+      "expires_in_sec": 30,
+      "signal_latency_ms": 0.125,
+      "asr_latency_ms": null
+    },
+    {
+      "id": "e35ccc188e",
+      "session_id": "replay-41510fc5",
+      "rule_id": "topic_shift",
+      "group": "topic",
+      "priority": "normal",
+      "confidence": 0.79,
+      "text": "The caller shifted from vehicle to payment. Acknowledge the new topic and confirm what they want help with.",
+      "audio_time_sec": 7.5,
+      "created_at": "2026-09-30T12:17:43.109377+00:00",
+      "expires_in_sec": 30,
+      "signal_latency_ms": 0.09,
+      "asr_latency_ms": null
+    },
+    {
+      "id": "99fa677c5f",
+      "session_id": "replay-41510fc5",
+      "rule_id": "payment_hardship",
+      "group": "payment_support",
+      "priority": "high",
+      "confidence": 0.9,
+      "text": "Acknowledge the difficulty and offer the approved payment-support or callback path.",
+      "audio_time_sec": 7.5,
+      "created_at": "2026-09-30T12:17:43.109405+00:00",
+      "expires_in_sec": 30,
+      "signal_latency_ms": 0.11,
+      "asr_latency_ms": null
+    }
+  ],
+  "client_api_round_trip_ms": {
+    "p50": 6.259,
+    "p95": 29.04,
+    "samples": 7
+  },
+  "pipeline_metrics": {
+    "session_id": "replay-41510fc5",
+    "transcript_segments": 7,
+    "nudge_count": 5,
+    "signal_candidates": 5,
+    "suppressed": {
+      "low_transcript_confidence": 2
+    },
+    "signals": [
+      "missed_cross_sell",
+      "risky_promise",
+      "frustration",
+      "topic_shift",
+      "payment_hardship"
+    ],
+    "latency_ms": {
+      "asr": {
+        "p50": null,
+        "p95": null,
+        "samples": 0
+      },
+      "signal": {
+        "p50": 0.119,
+        "p95": 0.271,
+        "samples": 7
+      },
+      "api_processing": {
+        "p50": 0.142,
+        "p95": 0.323,
+        "samples": 7
+      },
+      "llm": {
+        "p50": 0,
+        "p95": 0,
+        "note": "not used; deterministic rules"
+      },
+      "display": {
+        "note": "Polling client observes nudge on its next poll; measure client-side for an end-to-end number."
+      }
+    }
+  },
+  "latency_limitations": "ASR latency and real dashboard display latency are not measured in transcript replay. Use q4.audio_replay with an audio WAV and Deepgram credentials for those components."
+}
